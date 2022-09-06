@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     network_mode: "host"
     volumes:
-      - /root/deploy-filebrowser/filebrowser/Caddyfile:/etc/caddy/Caddyfile
+      - ${caddyfile}:/etc/caddy/Caddyfile
       - caddy-data:/data
       - caddy-config:/config
 
@@ -14,9 +14,9 @@ services:
     restart: unless-stopped
     network_mode: "host"
     volumes:
-      - /root/deploy-filebrowser/files:/srv
-      - /root/deploy-filebrowser/filebrowser/filebrowser.db:/database/filebrowser.db
-      - /root/deploy-filebrowser/filebrowser/config.json:/config/settings.json
+      - ${files}:/srv
+      - ${filebrowser.db}:/database/filebrowser.db
+      - ${settings.json}:/config/settings.json
     environment:
       - PUID=1000
       - PGID=1000
