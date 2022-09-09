@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  sing-box:
+    image: ghcr.io/sagernet/sing-box:v1.0
+    container_name: sing-box
+    network_mode: "host"
+    volumes:
+      - $PWD/cert:/etc/cert
+      - $PWD/config.json:/etc/sing-box/config.json
+    restart: unless-stopped
+    command: " -c /etc/sing-box/config.json run"
+  filebrowser:
+    image: filebrowser/filebrowser:s6
+    container_name: filebrowser
+    network_mode: host
+    volumes:
+      - $PWD/srv:/srv
+      - $PWD/filbrowser.json:/config/settings.json
+      - $PWD/filebrowser.db:/database/filebrowser.db
+    environment:
+      - PUID=1000
+      - PGID=1000
