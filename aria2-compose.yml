@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  aria2:
+    image: p3terx/aria2-pro
+    container_name: aria2
+    environment:
+      # - PUID=$UID
+      # - PGID=$GID
+      - RPC_SECRET=PASSWD
+      - RPC_PORT=6800
+      - LISTEN_PORT=40000
+      - SPECIAL_MODE=rclone
+    volumes:
+      - ./aria2-config:/config
+      - ./rclone-downloads:/downloads
+    network_mode: "host"
