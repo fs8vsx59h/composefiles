@@ -1,0 +1,11 @@
+services:
+  hysteria2:
+    image: hysteria2:wip
+    container_name: hysteria2
+    network_mode: "host"
+    volumes:
+      - ./fullchain.cer:/etc/hysteria2/fullchain.cer
+      - ./private.key:/etc/hysteria2/private.key
+      - ./config.yaml:/etc/hysteria2/config.yaml
+    command: server -c /etc/hysteria2/config.yaml
+    restart: unless-stopped
