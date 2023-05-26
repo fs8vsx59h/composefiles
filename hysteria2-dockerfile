@@ -5,4 +5,5 @@ RUN mkdir bin \
 &&  go build -o ./bin/app ./app
 FROM debian:latest
 COPY --from=builder --chmod=0755 /go/hysteria/bin/app /usr/bin/hysteria2
+RUN mkdir /etc/hysteria2
 ENTRYPOINT [ "/usr/bin/hysteria2" ]
