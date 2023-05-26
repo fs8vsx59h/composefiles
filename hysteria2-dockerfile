@@ -1,0 +1,8 @@
+FROM golang:bullseye AS builder
+RUN git clone --branch wip-hy2 https://github.com/apernet/hysteria.git 
+WORKDIR /go/hysteria
+RUN mkdir bin \
+&&  go build -o ./bin/app ./app
+FROM debian:latest
+COPY --from=builder --chmod=0755 /go/hysteria/bin/app /usr/bin/hysteria2
+ENTRYPOINT [ "/usr/bin/hysteria2" ]
