@@ -1,0 +1,8 @@
+services:
+  sing-box:
+    container_name: sing-box
+    image: sing-box:beta
+    volumes:
+      - ./config.json:/etc/sing-box/config.json
+    command: run -c /etc/sing-box/config.json
+    network_mode: host
