@@ -2,6 +2,8 @@ name: sing-box-builder
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron:  '30 8 * * *'    # At every 8:30
 
 jobs:
   docker:
