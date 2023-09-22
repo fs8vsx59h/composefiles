@@ -1,0 +1,54 @@
+version: '3.9'
+services:
+    alist:
+        restart: 'always'
+        volumes:
+            - ./alist:/opt/alist/data
+            - ./LocalStorage:/mnt/Localstorage
+        network_mode: "host"
+        environment:
+            - PUID=0
+            - PGID=0
+            - UMASK=022
+        container_name: alist
+        image: xhofe/alist:main
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.9'
+                    memory: 400M
+    hysteria2:
+        image: tobyxdd/hysteria
+        container_name: hysteria2
+        network_mode: "host"
+        volumes:
+            - ./hysteria:/etc/hysteria
+        command: server -c /etc/hysteria/config.yaml
+        environment:
+            - HYSTERIA_LOG_LEVEL=debug
+            - HYSTERIA_LOG_FORMAT=json
+        restart: always
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.9'
+                    memory: '200M'
+    qbittorrent:
+        image: p3terx/qbittorrent-enhanced
+        container_name: qbittorrent
+        network_mode: host
+        environment:
+            - PUID=0
+            - PGID=0
+            - UMASK=022
+            - TZ=Asia/Shanghai
+            - QBT_WEBUI_PORT=19008
+        volumes:
+            - ./LocalStorage:/downloads
+            - ./qbit-config:/qBittorrent
+        restart: always
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.9'
+                    memory: '400M'
