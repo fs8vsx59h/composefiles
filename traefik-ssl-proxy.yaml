@@ -1,0 +1,22 @@
+http:
+  routers:
+    default-router:
+      rule: "Host(`HOSTNAME`)" 
+      service: default-balancer
+      entryPoints:
+        - "web"
+        - "tlsweb"
+      tls:
+        default:
+  services:
+    default-balancer:
+      loadBalancer:
+        servers:
+          - url: SITE1
+          - url: SITE2
+tls:
+  stores:
+    default:
+      defaultCertificate:
+        certFile: CERT
+        keyFile: KEY
